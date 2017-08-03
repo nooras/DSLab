@@ -1,8 +1,8 @@
 #include<stdio.h>
-#incluse<stdlib.h>
-#define MAX_Size 10
+#include<stdlib.h>
+#define MAXSIZE[10]
 int stack(MAXSIZE),top=-1;
-int isfull()
+int isFull()
 {
 	//return 1 if stack is full else return -1
 	if(top==MAXSIZE)
@@ -21,7 +21,7 @@ int peek(){
 	}	
 void push(int e){
 	//insert an element into stack
-	if(!isfull)
+	if(!isFull)
 {	++top;
 	stack(top)=e;
 	printf("successful inserted");

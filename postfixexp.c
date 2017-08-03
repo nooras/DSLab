@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<ctype.h>
+#include<ctype.>
 typedef struct conversion
 {
 	int a[30];

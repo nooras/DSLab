@@ -19,7 +19,7 @@ int main()
 	printf("\nPOSTFIX EXPRESSION",postfix);
 	return 0;
 }
-void convert(char in[],char post[])
+void convert(char in[30],char post[30])
 {
 	char opr;
 	stack s1;
@@ -71,3 +71,4 @@ int priority(char c)
 	return 1;
 	else return 0;
 }
+int push()
