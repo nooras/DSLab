@@ -2,15 +2,18 @@
 #include<math.h>
 #include<stdlib.h>
 #define MAXSIZE 10
+
 int Queue[MAXSIZE],front=-1,rear=-1;
+
 int isFull()
 {
 	//return 1 if  is full else return 0
-	if(((abs(front-rear) % (MAXSIZE - 1)==1) || (abs(front-rear) % (MAXSIZE-1)==0)) && (front!=-1 && rear!=-1))
+	if((rear==MAXSIZE-1 && front==0)||(rear+1==front))
 		return 1;
 	else
 		return 0;
 }
+
 int isEmpty(){
 	//return 1 if Queue is empty else return -0
 	if(front == -1 && rear == -1)
@@ -18,25 +21,40 @@ int isEmpty(){
 	else 
 		return 0;
 }
-int peek()
+
+void display()
 {
 	//return element at the front of Queue 
-	return Queue[front];
+	int i=front;
+	if(!isEmpty())
+	{
+		while(i!=rear)
+		{
+			printf("%d\t",Queue[i]);
+			i=(i+1)%MAXSIZE;
+		}
+		printf("%d\t",Queue[i]);
+	}
+	else 
+		printf("\nQueue is Empty.");
 }	
+
 void insertQueue(int d)
 {
 	if(!isFull())
 	{
-		if(isEmpty())
+		if(front==-1)
 		{
 			front++;
 		}
-			rear=(rear++) % MAXSIZE;
+		rear=(rear+1) % MAXSIZE;
+		Queue[rear]=d;
 		printf("ELEMENT INSERT SUCCESSFULLY %d\n",d);
 	}
 	else
 		printf("QUEUE IS FULL ");
 }
+
 void deleteQueue()
 {
 	if(!isEmpty())
@@ -45,12 +63,13 @@ void deleteQueue()
 		if(front==rear)
 			front=rear=-1;
 		else 
-			front=(front++) % MAXSIZE;
+			front=(front+1) % MAXSIZE;
 		printf("THE ELEMENT DELETED IS %d",d);
 	}	
 	else
 		printf("QUEUE IS EMPty");
 }
+
 int main()
 {
 	int choice,e;
@@ -62,10 +81,7 @@ int main()
 		switch(choice)
 		{
 			case 1:
-				if(isEmpty())
-					printf("QUEUE IS EMPTY");
-				else
-					printf("ELEMENT IS FRONT OF QUEUE IS %d",peek());
+				display();
 				break;
 			case 2:
 				printf("ENTER ELEMENT TO INSERT");
