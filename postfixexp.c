@@ -1,5 +1,11 @@
+/*
+ * DISCRIPTION : Evaluation of postfix expression
+ * AUTHOR : Nooras Fatima-16co01
+ * CREATED ON : July 27,2017
+ */
+
 #include<stdio.h>
-#include<ctype.>
+#include<ctype.h>
 typedef struct conversion
 {
 	int a[30];
@@ -12,7 +18,7 @@ int evaluate(char pos[]);
 int main()
 {
 	char postfix[30];
-	printf("\nENTER POSTFIX EXPRESSION");
+	printf("\nENTER POSTFIX EXPRESSION\n");
 	scanf("%s",postfix);
 	printf("\nEVALUATED POSTFIX EXPRESSION=%d",evaluate(postfix));
 	return 0;
@@ -76,3 +82,26 @@ int evaluate(char pos[30])
 	return pop(&s);
 }
 
+/*
+ 
+ OUTPUT:
+ 
+------------------------------------
+ENTER POSTFIX EXPRESSION
+453*+
+
+EVALUATED POSTFIX EXPRESSION=19
+
+------------------
+(program exited with code: 0)
+-------------------------------------
+ENTER POSTFIX EXPRESSION
+453*+23*+
+
+EVALUATED POSTFIX EXPRESSION=25
+
+------------------
+(program exited with code: 0)
+-------------------------------------
+
+*/

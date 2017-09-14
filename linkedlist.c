@@ -1,3 +1,9 @@
+/*
+ * DISCRIPTION :Implemenattion of singly linked list
+ * AUTHOR : Nooras Fatima-16co01
+ * CREATED ON : Aug 31,2017
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct linked_list
@@ -38,7 +44,7 @@ void insend(node **q,int no)
 	ptr->data=no;
 	ptr->next=NULL;
 	temp=*q;
-	if(temp=NULL)
+	if(temp==NULL)
 	   *q=ptr;
 	else
 	{
@@ -89,15 +95,18 @@ void del(node **q,int no)
 				*q=temp->next;
 			else
 			{
-				old=temp;
-				temp=temp->next;
+				old->next=temp->next;
 			}
+			free(temp);
+			break;
 		}
+		old=temp;
+		temp=temp->next;
+	}
 		if(f==0)
 			printf("\nTHE GIVEN NO IS NOT FOUND\n");
 		printf("\nELEMENT OF LINKLIST AFTER DELETION\n");
 		print(*q);
-	}
 }
 
 void traverse(node *q)
@@ -171,3 +180,129 @@ int main()
 		}while(1);	
 	return 0;
 }
+/*
+
+OUTPUT:
+--------------------------------------------
+ENTER NUMBER OF NODES: 2
+
+ENTER NODE NUMBER 1: 23
+
+ENTER NODE NUMBER 2: 12
+
+ENTER YOUR CHOICE
+
+1-INSERTION
+2-DELETION
+3-TRAVERSE
+4-Exit
+
+1
+
+ENTER THE NUMBER TO BE INSERTED: 5
+
+ENTER 1 TO INSERT AT THE BEGINING
+ENTER 2 TO INSERT AT THE END
+ENTER 3 TO INSERT AT A SPECIFIED LOCATION
+1
+
+ELEMENTS OF LINKED LIST AFTER INSERTION
+
+5	23	12	
+ENTER YOUR CHOICE
+
+1-INSERTION
+2-DELETION
+3-TRAVERSE
+4-Exit
+
+1
+
+ENTER THE NUMBER TO BE INSERTED: 7
+
+ENTER 1 TO INSERT AT THE BEGINING
+ENTER 2 TO INSERT AT THE END
+ENTER 3 TO INSERT AT A SPECIFIED LOCATION
+2
+
+ELEMENTS OF LINKED LIST AFTER INSERTION
+
+5	23	12	7	
+ENTER YOUR CHOICE
+
+1-INSERTION
+2-DELETION
+3-TRAVERSE
+4-Exit
+
+1
+
+ENTER THE NUMBER TO BE INSERTED: 65
+
+ENTER 1 TO INSERT AT THE BEGINING
+ENTER 2 TO INSERT AT THE END
+ENTER 3 TO INSERT AT A SPECIFIED LOCATION
+3
+ENTER LOCATION WHERE THE NO IS TO BE INSERTED:3
+
+ELEMENTS OF LINKED LIST AFTER INSERTION
+
+5	23	65	12	7	
+ENTER YOUR CHOICE
+
+1-INSERTION
+2-DELETION
+3-TRAVERSE
+4-Exit
+
+2
+
+ENTER THE NUMBER TO BE DELETED: 12
+
+ELEMENT OF LINKLIST AFTER DELETION
+
+5	23	65	7	
+ENTER YOUR CHOICE
+
+1-INSERTION
+2-DELETION
+3-TRAVERSE
+4-Exit
+
+2
+
+ENTER THE NUMBER TO BE DELETED: 23
+
+ELEMENT OF LINKLIST AFTER DELETION
+
+5	65	7	
+ENTER YOUR CHOICE
+
+1-INSERTION
+2-DELETION
+3-TRAVERSE
+4-Exit
+
+3
+
+TRAVERSING LINKLIST
+
+
+5	65	7	
+
+END OF LINKLIST
+
+ENTER YOUR CHOICE
+
+1-INSERTION
+2-DELETION
+3-TRAVERSE
+4-Exit
+
+4
+
+
+------------------
+(program exited with code: 0)
+-----------------------------------------
+*/

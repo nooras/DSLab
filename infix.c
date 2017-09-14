@@ -1,25 +1,36 @@
+/*
+ * DISCRIPTION : Convert Infix to Postfix
+ * AUTHOR : Nooras Fatima-16co01
+ * CREATED ON : July 21,2017
+ */
 #include<stdio.h>
-#include<ctype.h> //for isalpha() function
+#include<ctype.h> 
 
 typedef struct conversion
 {
-	char a[30];
+	char a[40];
 	int  top;
 }stack;
+
 void push(stack*,char);
+
 char pop(stack*);
+
 void convert(char[],char[]);
+
 int priority(char);
+
 int main()
 {
-	char infix[30],postfix[30];
-	printf("\nENTER INFIX EXPRESSION");
+	char infix[40],postfix[40];
+	printf("\nENTER INFIX EXPRESSION\n");
 	scanf("%s",infix);
-	convert(infix,postfix);
-	printf("\nPOSTFIX EXPRESSION",postfix);
+	convert(infix,postfix); //call convert function
+	printf("\nPOSTFIX EXPRESSION \n%s\n",postfix);
 	return 0;
 }
-void convert(char in[30],char post[30])
+
+void convert(char in[40],char post[40])
 {
 	char opr;
 	stack s1;
@@ -28,15 +39,15 @@ void convert(char in[30],char post[30])
 	for(i=0;in[i]!='\0';i++)
 	{
 		if(isalpha(in[i]))
-		post[j++]=in[i];
+			post[j++]=in[i];
 		if(in[i]=='(')
-		push(&s1,in[i]);
+			push(&s1,in[i]);
 		if(in[i]=='+'||in[i]=='-'||in[i]=='/'||in[i]=='*')
 		{
 			if(s1.top!=-1)
 			{
 				opr=pop(&s1);
-			    while(priority(opr)>=priority(in[i]))
+			    while(priority(opr)>=priority(in[i])) //call priority function
 			    {
 					post[j++]=opr;
 					opr=pop(&s1);
@@ -58,17 +69,58 @@ void convert(char in[30],char post[30])
 		}
 	}
 	while(s1.top!=-1)
-	post[j++]=pop(&s1);
+		post[j++]=pop(&s1);
 	post[j]='\0';
 }
+
 int priority(char c)
 {
 	if(c=='$')
-	return 3;
+		return 3;
 	if(c=='*'||c=='/')
-	return 2;
+		return 2;
 	if(c=='+'||c=='-')
-	return 1;
-	else return 0;
+		return 1;
+	else 
+		return 0;
 }
-int push()
+
+void push(stack *s,char opr)
+{
+	//push element into stack
+	s->top++;
+	s->a[s->top]=opr;
+}
+
+char pop(stack *s)
+{
+	//pop elemnet from stack
+	if (s->top==-1)
+	{
+		return 0;
+    }
+    else
+    {
+		char data=s->a[s->top--];
+		return data;
+    }
+}
+
+/*
+
+OUTPUTS:
+-------------------------------
+ENTER INFIX EXPRESSION
+(A+(B*C))/(C-(D*B))
+
+POSTFIX EXPRESSION 
+ABC*+CDB*-/
+--------------------------------
+ENTER INFIX EXPRESSION
+A+B-(C*D/E)
+
+POSTFIX EXPRESSION 
+AB+CD*E/-
+--------------------------------
+
+*/

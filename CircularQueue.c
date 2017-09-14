@@ -1,7 +1,13 @@
+/*
+ * DISCRIPTION : Array implementation of circular queue
+ * AUTHOR : Nooras Fatima-16co01
+ * CREATED ON : Aug 10,2017
+ */
+ 
 #include<stdio.h>
 #include<math.h>
 #include<stdlib.h>
-#define MAXSIZE 10
+#define MAXSIZE 3
 
 int Queue[MAXSIZE],front=-1,rear=-1;
 
@@ -41,6 +47,7 @@ void display()
 
 void insertQueue(int d)
 {
+	//insert an element 
 	if(!isFull())
 	{
 		if(front==-1)
@@ -57,6 +64,7 @@ void insertQueue(int d)
 
 void deleteQueue()
 {
+	//delete an element
 	if(!isEmpty())
 	{
 		int d=Queue[front];
@@ -81,21 +89,58 @@ int main()
 		switch(choice)
 		{
 			case 1:
-				display();
+				display();//call display function
 				break;
 			case 2:
 				printf("ENTER ELEMENT TO INSERT");
 				scanf("%d",&e);
-				insertQueue(e);
+				insertQueue(e);//call insertqueue function
 				break;
 			case 3:
-				deleteQueue();
+				deleteQueue();//call deletequeue function
 				break;
 			case 4:
-				exit(0);
+				exit(0);//call exit function
 				break;
 			default:
-				printf("ENTER INVALID CHOICE");
+				printf("ENTER INVALID CHOICE");//for invalid choice
 		}
 	}
 }
+/*
+
+OUTPUT:
+-----------------------------------------------------
+ 1.Display 2.INSERT 3.DELETE 4.EXIT
+ENTER CHOICE
+2
+ENTER ELEMENT TO INSERT10
+ELEMENT INSERT SUCCESSFULLY 10
+1.Display 2.INSERT 3.DELETE 4.EXIT
+ENTER CHOICE
+2
+ENTER ELEMENT TO INSERT65
+ELEMENT INSERT SUCCESSFULLY 65
+1.Display 2.INSERT 3.DELETE 4.EXIT
+ENTER CHOICE
+2
+ENTER ELEMENT TO INSERT40
+ELEMENT INSERT SUCCESSFULLY 40
+1.Display 2.INSERT 3.DELETE 4.EXIT
+ENTER CHOICE
+2
+ENTER ELEMENT TO INSERT12
+QUEUE IS FULL 
+1.Display 2.INSERT 3.DELETE 4.EXIT
+ENTER CHOICE
+3
+THE ELEMENT DELETED IS 10
+1.Display 2.INSERT 3.DELETE 4.EXIT
+ENTER CHOICE
+1
+65      40      
+1.Display 2.INSERT 3.DELETE 4.EXIT
+ENTER CHOICE
+4
+-------------------------------------------------
+*/
