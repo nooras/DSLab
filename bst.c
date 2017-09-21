@@ -36,39 +36,9 @@ void insert(node **r,int num)
 	else
 	{
 		if(num > temp->data)
-		{
-			if(temp->right==NULL)
-			{
-				ptr=(node*)malloc(sizeof(node));
-				ptr->data=num;
-				ptr->left=NULL;
-				ptr->right=NULL;
-				temp->right=ptr;
-				return;
-			}
-	        else
-			{
-				temp=temp->right;
-				insert(&temp,num);
-			}
-		}
+				insert(&temp->right,num);
 		else
-		{
-			if(temp->left==NULL)
-			{
-				ptr=(node*)malloc(sizeof(node));
-				ptr->data=num;
-				ptr->left=NULL;
-				ptr->right=NULL;
-				temp->left=ptr;
-				return;
-			}
-	        else
-			{
-				temp=temp->left;
-				insert(&temp,num);
-			}
-		}
+				insert(&temp->left,num);
 	}
 }
 int search(node *q,int num)
@@ -84,64 +54,118 @@ int search(node *q,int num)
 		else
 		{
 			if(num>q->data)
-				search(q->right,num);
+				return search(q->right,num);
 			else
-				search(q->left,num);
+				return search(q->left,num);
 		}
 	}
 }
 
-void delete(node **q,int num)
+void search_node(node **x,node *root,node **parent,int num,int *f)
 {
 	node *temp;
-	temp=*q;
+	temp=root;
 	if(temp==NULL)
-	{
-		printf("\n THE GIVEN NUMBER IS NOT FOUND");
 		return;
-	}
-	else
-	{
+	while(temp!=NULL)
+	{	
 		if(temp->data==num)
 		{
-			if(temp->left==NULL&&temp->right==NULL)
-				free(temp);
-			
+			*f=1;
+			*x=temp;
 			return;
 		}
+		*parent=temp;
+		if(num>temp->data)
+			temp=temp->right;
 		else
-		{
-			if(num > temp->data)
-				delete(&temp->right,num);
-			else
-				delete(&temp->left,num);
-		}
+			temp=temp->left;
 	}
+}
+void delete(node **q,int num)
+{
+	node *temp,*parent,*xsucc,*x;
+	int f=0;
+	parent=NULL;
+	x=NULL;
+	xsucc=NULL;
+	temp=*q;
+	search_node(&x,temp,&parent,num,&f);
+	if(f==0)
+	{
+		printf("\n THE GIVEN NUMBER %d IS NOT FOUND",num);
+		return;
+	}
+	//x has no child
+	if((x->left==NULL) && (x->right==NULL))
+	{
+		if(x->data > parent->data)
+			parent->right=NULL;
+		else
+			parent->left=NULL;
+	}
+	//x has left child
+	else if((x->left!=NULL) && (x->right==NULL))
+	{
+		if(x->data > parent->data)
+			parent->right=x->left;
+		else
+			parent->left=x->left;
+	}
+		//x has right child
+	else if((x->right!=NULL) && (x->left==NULL))
+	{
+		if(x->data > parent->data)
+			parent->right=x->right;
+		else
+			parent->left=x->right;
+	}	
+			//x has both left and right  child
+	else if(x->left!=NULL && x->right!=NULL)
+	{
+		parent=x;
+		xsucc=x->right;
+		while(xsucc->left!=NULL)
+		{
+			parent=xsucc;
+			xsucc=xsucc->left;
+		}
+		if(x->data > parent->data)
+			parent->right=NULL;
+		else
+			parent->left=NULL;
+			x->data=xsucc->data;
+			x=xsucc;
+	}
+	free(x);
 }
 int main()
 {
 	node *root;
 	root=NULL;
-	insert(&root,5);
-	insert(&root,6);
-	insert(&root,7);
+	insert(&root,20);
+	insert(&root,15);
+	insert(&root,13);
+	insert(&root,17);
+	insert(&root,16);
+	insert(&root,19);
+	insert(&root,18);
+	insert(&root,25);
 	traverse_inorder(root);
-	if(search(root,7)==1)
-		printf("\n THE NUMBER %d IS PRESENT IN THE TREE",7);
+	if(search(root,15)==1)
+		printf("\n THE NUMBER %d IS PRESENT IN THE TREE\n",15);
 	else
-		printf("\n THE NUMBER %d IS IS NOT FOUND",7);
+		printf("\n THE NUMBER %d IS IS NOT FOUND\n",15);
+	delete(&root,18);
+	traverse_inorder(root);
+	delete(&root,17);
+	traverse_inorder(root);
 	return 0;
 }
 
 /*
 
 OUTPUT:
------------------------------------------------
-5	6	7	
- THE NUMBER 7 IS PRESENT IN THE TREE
-
-------------------
-(program exited with code: 0)
-
------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
 */
