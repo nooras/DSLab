@@ -115,6 +115,7 @@ void delete(node **q,int num)
 		//x has right child
 	else if((x->right!=NULL) && (x->left==NULL))
 	{
+		printf("\nbefore %d\n",parent->data);
 		if(x->data > parent->data)
 			parent->right=x->right;
 		else
@@ -130,42 +131,59 @@ void delete(node **q,int num)
 			parent=xsucc;
 			xsucc=xsucc->left;
 		}
+		x->data=xsucc->data;
+		x=xsucc;
 		if(x->data > parent->data)
 			parent->right=NULL;
 		else
-			parent->left=NULL;
-			x->data=xsucc->data;
-			x=xsucc;
+			parent->left=NULL;		
 	}
+	
 	free(x);
 }
 int main()
 {
 	node *root;
+    int c,n,e,d,s,i;
 	root=NULL;
-	insert(&root,20);
-	insert(&root,15);
-	insert(&root,13);
-	insert(&root,17);
-	insert(&root,16);
-	insert(&root,19);
-	insert(&root,18);
-	insert(&root,25);
-	traverse_inorder(root);
-	if(search(root,15)==1)
-		printf("\n THE NUMBER %d IS PRESENT IN THE TREE\n",15);
-	else
-		printf("\n THE NUMBER %d IS IS NOT FOUND\n",15);
-	delete(&root,18);
-	traverse_inorder(root);
-	delete(&root,17);
-	traverse_inorder(root);
+	do
+	{
+		printf("ENETR\n1.INSERT\n2.DELETE\n3.SEARCH\n4.TRAVERSE INORDER\n");
+		scanf("%d",&c);
+		switch(c)
+		{
+			case 1:
+				printf("\nENTER HOW MANY NO YOU WANT TO INSERT\n");
+				scanf("%d",&n);
+				for(i=0;i<n;i++)
+				{
+					scanf("%d",&e);
+					insert(&root,e);
+				}
+				break;
+			case 2:
+				printf("THE NO YOU WANT TO DELETE : ");
+				scanf("%d",&d);
+				delete(&root,d);
+				break;
+			case 3:
+				printf("ENTER THE NO YOU WANT TO SEARCH : ");
+				scanf("%d",&s);
+				if(search(root,s)==1)
+					printf("\n THE NUMBER %d IS PRESENT IN THE TREE\n",s);
+				else
+					printf("\n THE NUMBER %d IS IS NOT FOUND\n",s);
+				break;
+			case 4:
+				traverse_inorder(root);
+				break;
+			case 5:
+				exit(0);
+				break;
+			default:
+				printf("INVALID CHOICE!!");
+		}
+	}while(1);
 	return 0;
 }
 
-/*
-
-OUTPUT:
----------------------------------------------------
----------------------------------------------------
-*/
