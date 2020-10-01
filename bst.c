@@ -85,10 +85,10 @@ void search_node(node **x,node *root,node **parent,int num,int *f)
 void delete(node **q,int num)
 {
 	node *temp,*parent,*xsucc,*x;
+	xsucc=NULL;	
 	int f=0;
 	parent=NULL;
 	x=NULL;
-	xsucc=NULL;
 	temp=*q;
 	search_node(&x,temp,&parent,num,&f);
 	if(f==0)
